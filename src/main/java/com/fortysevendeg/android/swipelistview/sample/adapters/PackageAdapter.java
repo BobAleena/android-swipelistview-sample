@@ -20,7 +20,10 @@ package com.fortysevendeg.android.swipelistview.sample.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +97,13 @@ public class PackageAdapter extends BaseAdapter {
         holder.bAction2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + item.getPackageName())));
+                if (isPlayStoreInstalled()) {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + item.getPackageName())));
+                } else {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + item.getPackageName())));
+                }
             }
         });
 
@@ -102,7 +111,12 @@ public class PackageAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Uri packageUri = Uri.parse("package:" + item.getPackageName());
-                Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
+                Intent uninstallIntent;
+                if (Build.VERSION.SDK_INT < 14) {
+                    uninstallIntent = new Intent(Intent.ACTION_DELETE, packageUri);
+                } else {
+                    uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
+                }
                 context.startActivity(uninstallIntent);
             }
         });
@@ -118,6 +132,14 @@ public class PackageAdapter extends BaseAdapter {
         Button bAction1;
         Button bAction2;
         Button bAction3;
+    }
+
+    private boolean isPlayStoreInstalled() {
+        Intent market = new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=dummy"));
+        PackageManager manager = context.getPackageManager();
+        List<ResolveInfo> list = manager.queryIntentActivities(market, 0);
+
+        return list.size() > 0;
     }
 
 }
