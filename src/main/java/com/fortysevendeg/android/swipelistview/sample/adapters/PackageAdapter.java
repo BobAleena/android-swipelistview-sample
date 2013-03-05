@@ -112,7 +112,7 @@ public class PackageAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Uri packageUri = Uri.parse("package:" + item.getPackageName());
                 Intent uninstallIntent;
-                if (Build.VERSION.SDK_INT < 14) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                     uninstallIntent = new Intent(Intent.ACTION_DELETE, packageUri);
                 } else {
                     uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
