@@ -30,9 +30,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.android.swipelistview.R;
 import com.fortysevendeg.android.swipelistview.SwipeListView;
-import com.fortysevendeg.android.swipelistview.SwipeListViewListener;
 import com.fortysevendeg.android.swipelistview.sample.adapters.PackageAdapter;
 import com.fortysevendeg.android.swipelistview.sample.adapters.PackageItem;
 import com.fortysevendeg.android.swipelistview.sample.dialogs.AboutDialog;
@@ -61,34 +61,11 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
 
         data = new ArrayList<PackageItem>();
 
-//        PackageManager appInfo = getPackageManager();
-//        List<ApplicationInfo> listInfo = appInfo.getInstalledApplications(0);
-//        Collections.sort(listInfo, new ApplicationInfo.DisplayNameComparator(appInfo));
-//
-//
-//        for (int index=0; index<listInfo.size(); index++) {
-//            try {
-//                ApplicationInfo content = listInfo.get(index);
-//                if ( (content.flags != ApplicationInfo.FLAG_SYSTEM) && content.enabled) {
-//                    if (content.icon!=0) {
-//                        PackageItem item = new PackageItem();
-//                        item.setName(getPackageManager().getApplicationLabel(content).toString());
-//                        item.setPackageName(content.packageName);
-//                        item.setIcon(getPackageManager().getDrawable(content.packageName, content.icon, content));
-//                        data.add(item);
-//                    }
-//                }
-//            } catch (Exception e) {
-//
-//            }
-//        }
-
-
         adapter = new PackageAdapter(this, data);
 
         swipeListView = (SwipeListView) findViewById(R.id.example_lv_list);
 
-        swipeListView.setSwipeListViewListener(new SwipeListViewListener() {
+        swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
             public void onOpened(int position, boolean toRight) {
             }
