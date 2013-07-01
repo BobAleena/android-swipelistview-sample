@@ -23,13 +23,17 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.AbsListView;
+import android.widget.ListView;
 import com.fortysevendeg.android.swipelistview.BaseSwipeListViewListener;
 import com.fortysevendeg.android.swipelistview.R;
 import com.fortysevendeg.android.swipelistview.SwipeListView;
@@ -64,6 +68,47 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
         adapter = new PackageAdapter(this, data);
 
         swipeListView = (SwipeListView) findViewById(R.id.example_lv_list);
+
+        swipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            swipeListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+                @Override
+                public void onItemCheckedStateChanged(ActionMode mode, int position,
+                                                      long id, boolean checked) {
+                    mode.setTitle("Selected (" + swipeListView.getCountSelected() + ")");
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.menu_delete:
+                            swipeListView.dismissSelected();
+                            mode.finish();
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    MenuInflater inflater = mode.getMenuInflater();
+                    inflater.inflate(R.menu.menu_choice_items, menu);
+                    return true;
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+                    swipeListView.unselectedChoiceStates();
+                }
+
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    return false;
+                }
+            });
+        }
 
         swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
             @Override
@@ -109,6 +154,7 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
+
         });
 
         swipeListView.setAdapter(adapter);
@@ -136,9 +182,9 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
         swipeListView.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
     }
 
-    public int convertDpToPixel(float dp){
+    public int convertDpToPixel(float dp) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
-        float px = dp * (metrics.densityDpi/160f);
+        float px = dp * (metrics.densityDpi / 160f);
         return (int) px;
     }
 
@@ -182,11 +228,11 @@ public class SwipeListViewExampleActivity extends FragmentActivity {
 
             List<PackageItem> data = new ArrayList<PackageItem>();
 
-            for (int index=0; index<listInfo.size(); index++) {
+            for (int index = 0; index < listInfo.size(); index++) {
                 try {
                     ApplicationInfo content = listInfo.get(index);
-                    if ( (content.flags != ApplicationInfo.FLAG_SYSTEM) && content.enabled) {
-                        if (content.icon!=0) {
+                    if ((content.flags != ApplicationInfo.FLAG_SYSTEM) && content.enabled) {
+                        if (content.icon != 0) {
                             PackageItem item = new PackageItem();
                             item.setName(getPackageManager().getApplicationLabel(content).toString());
                             item.setPackageName(content.packageName);

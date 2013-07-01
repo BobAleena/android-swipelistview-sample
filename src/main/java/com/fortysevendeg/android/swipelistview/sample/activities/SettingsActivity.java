@@ -59,11 +59,17 @@ public class SettingsActivity extends Activity {
                     case R.id.action_left_reveal:
                         settings.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_REVEAL);
                         break;
+                    case R.id.action_left_choice:
+                        settings.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_CHOICE);
+                        break;
                     case R.id.action_right_dismiss:
                         settings.setSwipeActionRight(SwipeListView.SWIPE_ACTION_DISMISS);
                         break;
                     case R.id.action_right_reveal:
                         settings.setSwipeActionRight(SwipeListView.SWIPE_ACTION_REVEAL);
+                        break;
+                    case R.id.action_right_choice:
+                        settings.setSwipeActionRight(SwipeListView.SWIPE_ACTION_CHOICE);
                         break;
                 }
             }
@@ -99,10 +105,15 @@ public class SettingsActivity extends Activity {
         RadioButton rbActionLeftReveal = (RadioButton) findViewById(R.id.action_left_reveal);
         rbActionLeftReveal.setOnCheckedChangeListener(radiosListener);
 
+        RadioButton rbActionLeftChoice = (RadioButton) findViewById(R.id.action_left_choice);
+        rbActionLeftChoice.setOnCheckedChangeListener(radiosListener);
+
         if (settings.getSwipeActionLeft() == SwipeListView.SWIPE_ACTION_DISMISS) {
             rbActionLeftDismiss.setChecked(true);
         } else if (settings.getSwipeActionLeft() == SwipeListView.SWIPE_ACTION_REVEAL) {
             rbActionLeftReveal.setChecked(true);
+        } else if (settings.getSwipeActionLeft() == SwipeListView.SWIPE_ACTION_CHOICE) {
+            rbActionLeftChoice.setChecked(true);
         }
 
         RadioButton rbActionRightDismiss = (RadioButton) findViewById(R.id.action_right_dismiss);
@@ -111,10 +122,15 @@ public class SettingsActivity extends Activity {
         RadioButton rbActionRightReveal = (RadioButton) findViewById(R.id.action_right_reveal);
         rbActionRightReveal.setOnCheckedChangeListener(radiosListener);
 
+        RadioButton rbActionRightChoice = (RadioButton) findViewById(R.id.action_right_choice);
+        rbActionRightChoice.setOnCheckedChangeListener(radiosListener);
+
         if (settings.getSwipeActionRight() == SwipeListView.SWIPE_ACTION_DISMISS) {
             rbActionRightDismiss.setChecked(true);
         } else if (settings.getSwipeActionRight() == SwipeListView.SWIPE_ACTION_REVEAL) {
             rbActionRightReveal.setChecked(true);
+        } else if (settings.getSwipeActionRight() == SwipeListView.SWIPE_ACTION_CHOICE) {
+            rbActionRightChoice.setChecked(true);
         }
 
         tvOffsetLeft = (TextView) findViewById(R.id.offset_label_left);

@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.fortysevendeg.android.swipelistview.R;
+import com.fortysevendeg.android.swipelistview.SwipeListView;
 
 import java.util.List;
 
@@ -57,6 +58,15 @@ public class PackageAdapter extends BaseAdapter {
         return position;
     }
 
+//    @Override
+//    public boolean isEnabled(int position) {
+//        if (position == 2) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final PackageItem item = getItem(position);
@@ -76,6 +86,7 @@ public class PackageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        ((SwipeListView)parent).recycle(convertView, position);
 
         holder.ivImage.setImageDrawable(item.getIcon());
         holder.tvTitle.setText(item.getName());

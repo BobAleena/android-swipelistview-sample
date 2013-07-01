@@ -95,6 +95,18 @@
                     style="@style/SettingText"
                     android:text="@string/dismiss"/>
 
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/action_left_choice"
+                    style="@style/SettingText"
+                    android:text="@string/choice"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/New" />
+
         </RadioGroup>
 
 
@@ -125,6 +137,18 @@
                     android:id="@+id/action_right_dismiss"
                     style="@style/SettingText"
                     android:text="@string/dismiss"/>
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/action_right_choice"
+                    style="@style/SettingText"
+                    android:text="@string/choice"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/New" />
 
         </RadioGroup>
 

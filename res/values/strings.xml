@@ -33,6 +33,7 @@
     <string name="leftAction">Left Action</string>
     <string name="reveal">Reveal</string>
     <string name="dismiss">Dismiss</string>
+    <string name="choice">Choice</string>
     <string name="rightAction">Right Action</string>
     <string name="rightOffset">Right Offset (%1$s dp)</string>
     <string name="leftOffset">Left Offset (%1$s dp)</string>
@@ -52,5 +53,8 @@
     <string name="others">Others</string>
 
     <string name="loading">Loading</string>
+
+    <string name="newTag">New!</string>
+    <string name="discard">Discard</string>
 
 </resources>
