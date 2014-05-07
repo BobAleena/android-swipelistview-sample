@@ -25,7 +25,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.*;
 import com.fortysevendeg.android.swipelistview.R;
-import com.fortysevendeg.android.swipelistview.SwipeListView;
+import com.fortysevendeg.swipelistview.SwipeListView;
 import com.fortysevendeg.android.swipelistview.sample.utils.SettingsManager;
 
 public class SettingsActivity extends Activity {
